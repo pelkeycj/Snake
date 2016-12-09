@@ -1,5 +1,5 @@
 import pygame
-import snake
+from snake import *
 
 def main():
     #colors
@@ -13,7 +13,7 @@ def main():
     pygame.display.set_caption('Snake')
     gameDisplay.fill(white)
     pygame.display.update()
-    snake = Snake() #initialize player
+    snake = Snake(WIDTH/2, HEIGHT/2) #initialize player
 
     while True:
         for event in pygame.event.get():
@@ -26,9 +26,7 @@ def main():
                         event.key == pygame.K_DOWN:
                     snake.changeDirection(event.key)
 
-        gameDisplay.fill(white)
-        pygame.draw.rect(gameDisplay, black, [WIDTH/2, HEIGHT/2, 10, 50])
-        pygame.display.update()
+
 
 if __name__ == "__main__":
     main()
