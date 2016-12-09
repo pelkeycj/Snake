@@ -18,9 +18,9 @@ def main():
     snake = Snake(WIDTH/2, HEIGHT/2) #initialize player
 
     while True:
-        clock.tick(60) #clock runs at 5 FPS
+        clock.tick(15)
 
-        handleEvents(snake)                      # read inputs
+        handleEvents(snake)                 # read inputs
         snake.move()                        # update snake position
         gameDisplay.fill(white)             # clear screen
         render(gameDisplay, snake)          # draw snake
@@ -44,6 +44,7 @@ def handleEvents(snake):
 def render(gameDisplay, snake):
     for segment in snake.segments:
         pygame.draw.circle(gameDisplay, black, (segment.x, segment.y), snake.radius, 0)
+        print(segment.x)
 
 
 if __name__ == "__main__":
