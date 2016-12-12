@@ -1,4 +1,5 @@
 import pygame
+import sys
 from snake import *
 
 #colors
@@ -10,26 +11,30 @@ def main():
     pygame.init()
     WIDTH = 800
     HEIGHT = 600
-    gameDisplay = pygame.display.set_mode((WIDTH, HEIGHT))
+    TICK_RATE = 9
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption('Snake')
-    gameDisplay.fill(white)
+    screen.fill(white)
     pygame.display.update()
     clock = pygame.time.Clock()
     snake = Snake(WIDTH/2, HEIGHT/2) #initialize player
 
     while True:
-        clock.tick(15)
-
+        clock.tick(TICK_RATE)
         handleEvents(snake)                 # read inputs
         snake.move()                        # update snake position
-        gameDisplay.fill(white)             # clear screen
-        render(gameDisplay, snake)          # draw snake
+        screen.fill(white)
+        render(screen, snake)          # draw snake
         pygame.display.update()
+
+        print(snake.length)
+        snake.getSegments()
 
 def handleEvents(snake):
     for event in pygame.event.get():
         if event.type == pygame.QUIT: #exit game
             pygame.quit()
+            sys.exit()
         if event.type == pygame.KEYDOWN: # control direction
             print(event.type)
             if event.key == pygame.K_LEFT:
@@ -41,10 +46,11 @@ def handleEvents(snake):
             elif event.key == pygame.K_DOWN:
                 snake.changeDirection("down")
 
-def render(gameDisplay, snake):
-    for segment in snake.segments:
-        pygame.draw.circle(gameDisplay, black, (segment.x, segment.y), snake.radius, 0)
-        print(segment.x)
+def render(screen, snake):
+    s = snake.head
+    while s is not None:
+        pygame.draw.circle(screen, black, (s.x, s.y), snake.radius, 0)
+        s = s.next
 
 
 if __name__ == "__main__":
