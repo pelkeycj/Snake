@@ -17,6 +17,7 @@ class Snake:
         self.radius = 6
         self.length = 1
 
+
     def changeDirection(self, key):
         '''Change direction of snake head'''
         # cannot move in opposite of current direction
@@ -54,6 +55,7 @@ class Snake:
             self.head = segment
 
         self.length += 1
+
 
     def addSegment(self):
         head = self.head

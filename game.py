@@ -27,8 +27,6 @@ def main():
         render(screen, snake)          # draw snake
         pygame.display.update()
 
-        print(snake.length)
-        snake.getSegments()
 
 def handleEvents(snake):
     for event in pygame.event.get():
@@ -45,6 +43,7 @@ def handleEvents(snake):
                 snake.changeDirection("up")
             elif event.key == pygame.K_DOWN:
                 snake.changeDirection("down")
+
 
 def render(screen, snake):
     s = snake.head
