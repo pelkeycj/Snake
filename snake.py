@@ -14,7 +14,7 @@ class Snake:
         s = Segment(x, y, "up")
         self.head = s
         self.tail = s
-        self.radius = 6
+        self.radius = 8
         self.length = 1
 
 
@@ -45,19 +45,8 @@ class Snake:
         self.length -= 1
 
 
-    def insert(self, segment):
-        if self.head is None:
-            self.head = segment
-            self.tail = segment
-        else:
-            segment.next = self.head
-            self.head.prev = segment
-            self.head = segment
-
-        self.length += 1
-
-
-    def addSegment(self):
+    def addHead(self):
+        '''Add segment to head of snake'''
         head = self.head
         delta = self.radius * 2
 
@@ -71,19 +60,54 @@ class Snake:
         elif head.direction == "down":
             new_head = Segment(head.x, head.y + delta, head.direction)
 
-        self.insert(new_head)
+        #add new head
+        if self.head is None:
+            self.head = new_head
+            self.tail = new_head
+        else:
+            new_head.next = self.head
+            self.head.prev = new_head
+            self.head = new_head
+
+        self.length += 1
+
+
+    def addTail(self):
+        '''Add segment to tail of snake'''
+        tail = self.tail
+        delta = self.radius * 2
+
+        #make new tail Segment
+        if tail.direction == "left":
+            new_tail = Segment(tail.x + delta, tail.y, tail.direction)
+        elif tail.direction == "right":
+            new_tail = Segment(tail.x - delta, tail.y, tail.direction)
+        elif tail.direction == "up":
+            new_tail = Segment(tail.x, tail.y + delta, tail.direction)
+        elif tail.direction == "down":
+            new_tail = Segment(tail.x, tail.y - delta, tail.direction)
+
+        #insert new tail
+        if self.head is None:
+            self.head = new_tail
+            self.tail = new_tail
+        else:
+            new_tail.prev = self.tail
+            self.tail.next = new_tail
+            self.tail = new_tail
+
+        self.length += 1
 
 
     def move(self):
         '''Moves snake. Pops tail off and adds to head'''
-        self.addSegment()
+        self.addHead()
         self.popTail()
 
 
-    def getSegments(self):
-        current = self.head
-        count = 0
-        while current is not None:
-            count += 1
-            current = current.next
-        print(count)
+    def eat(self, food):
+        s = self.head
+        if (s.x - 5) <= food.x <= (s.x + 5) and (s.y - 5) <= food.y <= (s.y + 5):
+            print("eat")
+            food.setPosition(self)
+            self.addTail()
