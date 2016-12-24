@@ -4,7 +4,7 @@ class Food:
     def __init__(self):
         self.x = None
         self.y = None
-        self.radius = 4
+        self.radius = 8
 
 
     def setPosition(self, snake):

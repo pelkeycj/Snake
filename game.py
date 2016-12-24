@@ -13,7 +13,7 @@ def main():
     pygame.init()
     WIDTH = 840 #60 segments wide
     HEIGHT = 700 #50 segments tall
-    TICK_RATE = 7
+    TICK_RATE = 10
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption('Snake')
     screen.fill(white)
@@ -31,6 +31,9 @@ def main():
         screen.fill(white)
         render(screen, snake, food)          # draw snake
         pygame.display.update()
+
+        if snake.collide(WIDTH, HEIGHT):
+            break
 
 
 def handleEvents(snake):

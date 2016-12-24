@@ -106,8 +106,25 @@ class Snake:
 
 
     def eat(self, food):
+        '''Increases length of snake and resets food if head
+            overlaps with food'''
         s = self.head
-        if (s.x - 5) <= food.x <= (s.x + 5) and (s.y - 5) <= food.y <= (s.y + 5):
-            print("eat")
+        r = self.radius
+        if (s.x - r) <= food.x <= (s.x + r) and (s.y - r) <= food.y <= (s.y + r):
             food.setPosition(self)
             self.addTail()
+
+    def collide(self, width, height):
+        '''Detects whether game ends'''
+        # out of bounds
+        if self.head.x < self.radius or self.head.x > (width - self.radius):
+            return True
+        elif self.head.y < self.radius or self.head.y > (height - self.radius):
+            return True
+
+        # hit self
+        s = self.head.next
+        while s is not None:
+            if self.head.x is s.x and self.head.y is s.y:
+                return True
+            s = s.next
