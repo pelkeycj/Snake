@@ -1,3 +1,5 @@
+import random
+
 class Segment:
     def __init__(self, x, y, direction):
         self.x = x
@@ -125,6 +127,6 @@ class Snake:
         # hit self
         s = self.head.next
         while s is not None:
-            if self.head.x is s.x and self.head.y is s.y:
+            if (s.x -3)<= self.head.x <= (s.x + 3) and (s.y -3) <= self.head.y <= (s.y + 3):
                 return True
             s = s.next

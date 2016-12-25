@@ -8,8 +8,8 @@ class Food:
 
 
     def setPosition(self, snake):
-        x = random.randrange(7, 826, 7)
-        y = random.randrange(7, 686, 7)
+        x = random.randrange(self.radius, 632, self.radius)
+        y = random.randrange(self.radius, 472, self.radius)
 
         s = snake.head
         while s is not None:
